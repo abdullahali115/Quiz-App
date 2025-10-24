@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btn;
     Integer score;
+    Integer count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,21 +60,22 @@ public class MainActivity extends AppCompatActivity {
                 ids[2]= qs[2].getCheckedRadioButtonId();
                 ids[3]= qs[3].getCheckedRadioButtonId();
                 ids[4]= qs[4].getCheckedRadioButtonId();
+                count = 0;
+                RadioButton[] selected = new RadioButton[5];
 
-                    RadioButton[] selected = new RadioButton[5];
-
-                    for(int i=0;i<5;i++)
+                for(int i=0;i<5;i++)
+                {
+                    if(ids[i] != -1)
                     {
-                        if(ids[i] != -1)
-                        {
-                            selected[i] = findViewById(ids[i]);
-                            if(selected[i].getText().equals(answers[i]))
-                            {
-                                score++;
-                            }
-                        }
+                        selected[i] = findViewById(ids[i]);
+                        if(selected[i].getText().equals(answers[i]))
+                            score++;
                     }
-                    Toast.makeText(MainActivity.this, "You scored: "+ Integer.toString(score)+"/5", Toast.LENGTH_SHORT).show();
+                    else
+                        count++;
+                }
+                Toast.makeText(MainActivity.this, "Questions attempted: "+ Integer.toString(5-count), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "You scored: "+ Integer.toString(score)+"/5", Toast.LENGTH_SHORT).show();
             }
         });
 
